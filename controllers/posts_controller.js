@@ -11,10 +11,20 @@ module.exports.create= async function(req,res){
             return res.redirect('back');
         }
         else{
-            await Post.create({
+           let post = await Post.create({
                 content:req.body.content,
                 user:req.user.id
             });
+            post = await post.populate('user', 'name email').execPopulate();
+            if(req.xhr){
+                return res.json(200, {
+                    message:'Successfully Posted',
+                    data:{
+                        post:post
+                    }
+                })
+            }
+
             return res.redirect('back');
         }
     }catch(err){
@@ -32,6 +42,14 @@ module.exports.destroy = async function(req,res){
             
             await post.remove();
             await Comment.deleteMany({post:req.params.id});
+            if(req.xhr){
+                return res.json(200,{
+                    message:'Post Deleted',
+                    data:{
+                        post_id:req.params.id
+                    }
+                })
+            }
             return res.redirect('back');
         }else{
             console.log('Unauthorised');

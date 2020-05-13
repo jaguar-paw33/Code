@@ -12,24 +12,28 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 
-app.use(express.urlencoded({extended:false}));
-app.use(cookieParser());
-app.use(express.static('assets'));
-app.set('view engine', 'ejs');
-app.set('views', './views');
 
 app.use(sassMiddleware({
-    src:'./assets/sass',
+    src:'./assets/scss',
     dest:'./assets/css',
     debug:false,
     outputStyle:'expanded',
     prefix:'/css'
 }))
 
+app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 
+
+app.use(express.static('assets'));
+app.use('/uploads', express.static(__dirname +'/uploads'));
 app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
+
+
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.use(session({
     name:'codeial',
@@ -50,7 +54,7 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
-app.use('/uploads', express.static(__dirname +'/uploads'));
+
 
 app.use('/', require('./routes/index'));
 
