@@ -5,7 +5,7 @@
         
         new_post_form.submit(function(e){
             e.preventDefault();
-
+            
             let newPost = function(post){
                 return $(`
                         <li id='post-${post._id}'>
@@ -21,15 +21,15 @@
                     
                         <div>
                     
-                            <form action="/comments/create" method="POST">
+                            <form class='new-comment-form' action="/comments/create" method="POST">
                                 <input type="text" name='content' placeholder="Type Here to Comment" required>
-                                <input type="hidden" name='post_id' value='${post._id}'>
+                                <input type="hidden" name='post_id' value=${post._id}>
                                 <input type="submit" value='Comment'>
                             </form>
                             
                     
                             <h4><em> Comments - </em></h4>
-                                <ul>
+                                <ul class='comments-list' id='post-${post._id}-comments-list'>
                                 
                                 </ul>
                         </div>
@@ -48,6 +48,7 @@
                     posts_list.prepend(post);
                     let delete_button = $('.delete-post-button', post);
                     deletePost(delete_button);
+                    new Comment(posts_list);
                     return;
                 },error:function(err){
                     console.log('Error', err);
@@ -55,7 +56,7 @@
                 }
             })
 
-
+            
 
 
             
@@ -87,9 +88,10 @@
     }
 
     function convertToAjax(){
-        $('#posts-list li').each(function(){
-            let deleteButton = $('.delete-post-button', $(this));
+        $('#posts-list').each(function(){
+            let deleteButton = $('li  .delete-post-button', $(this));
             deletePost(deleteButton);
+            new Comment($(this));
             return;
             
         })

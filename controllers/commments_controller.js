@@ -16,6 +16,16 @@ module.exports.create = async function(req,res){
            
            await post.comments.push(comment._id);
            post.save();
+           comment = await comment.populate('user', 'name').execPopulate();
+           if(req.xhr){
+                return res.json(200, {
+                    message:'Successfully Commented',
+                    data:{
+                        comment:comment
+                    }
+                })
+           }
+
            return res.redirect('back');    
         }
         else{
@@ -37,7 +47,16 @@ module.exports.destroy = async function(req,res){
             let post_id = comment.post;
             comment.remove();
             await Post.findByIdAndUpdate(post_id, {$pull:{comments:req.params.id}});
-            console.log('Deleted');
+            
+            if(req.xhr){
+                return res.json(200, {
+                    message:'Successfully Deleted',
+                    data:{
+                        comment_id:req.params.id
+                    }
+                })
+            }
+            
             return res.redirect('back');
         }else{
             let post = await Post.findById(comment.post);
@@ -46,7 +65,14 @@ module.exports.destroy = async function(req,res){
                 comment.remove();
                 post.comments.pull(req.params.id);
                 post.save();
-                console.log('Deleted');
+                if(req.xhr){
+                    return res.json(200, {
+                        message:'Successfully Deleted',
+                        data:{
+                            comment_id:req.params.id
+                        }
+                    })
+                }
                 return res.redirect('back');
             }
             else{
