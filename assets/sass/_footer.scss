@@ -1,0 +1,15 @@
+footer{
+    position: fixed;
+    bottom:0;
+    width:100%;
+    background-color: slategrey;
+    div{
+        display: inline-block;
+        margin: 10px 20px;
+        a{
+            color:white;
+            text-decoration: none;
+        } 
+    }
+     
+}
