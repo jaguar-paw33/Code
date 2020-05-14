@@ -15,7 +15,7 @@ class chatBox{
         let self = this;
 
         this.socket.on('connect', function(){
-            console.log('connection established');
+        
             
             self.socket.emit('join_room', {
                 chatRoom:'codeial',
@@ -23,7 +23,7 @@ class chatBox{
             })
 
             self.socket.on('user_joined', function(data){
-                console.log('user Joined ', data);
+               
             })
 
 
