@@ -12,7 +12,12 @@ const jwtStrategy = require('./config/passport-jwt-strategy');
 const googleStrategy = require('./config/passport-google-oauth-strategy');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
+const chatServer = require('http').Server(app);
+const chatSocket = require('./config/chatSockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('Socket Server listening at Port 5000');
 
 
 app.use(sassMiddleware({
@@ -56,6 +61,8 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
+app.use(flash());
+app.use(customMware.setFlash);
 
 
 app.use('/', require('./routes/index'));

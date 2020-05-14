@@ -53,12 +53,13 @@ module.exports.update = async function(req,res){
                     }
                 }
                 user.save();
+                req.flash('success', 'Updated Successfully');
                 return res.redirect('back');
             })
         }
 
         }else{
-            console.log('Unauthorosed');
+            req.flash('error', 'Unauthorised');
             return res.redirect('back');
         }
         
@@ -97,18 +98,18 @@ module.exports.create = async function(req,res){
     try{
             if(req.body.password != req.body.confirm_password)
             {
-                console.log('Confirm Password does not Match');
+                req.flash('error', 'Confirm Password does not Match');
                 return res.redirect('back');
             }
 
             let user = await User.findOne({email:req.body.email});
             if(user){
-                console.log('User already exists');
+                req.flash('error', 'User already exists');
                 return res.redirect('/users/signIn');
             }
             else{
                 await User.create(req.body);
-                console.log('Successfully Created');
+                req.flash('success', 'Signed Up Successfully');
                 return res.redirect('/users/signIn');
             }
         
@@ -120,11 +121,13 @@ module.exports.create = async function(req,res){
 
 
 module.exports.create_session = function(req,res){
+    req.flash('success', 'Signed In Successfully');
     return res.redirect('/');
 }
 
 
 module.exports.destroy_session = function(req,res){
     req.logout();
+    req.flash('success', 'Signed Out Successfully');
     return res.redirect('/users/signIn');
 }

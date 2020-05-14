@@ -20,6 +20,8 @@
     </ol>
 </div>
 
+
+
 <%if(locals.user){%>
 <section id='users'>
     <h3>Users</h3>
@@ -29,6 +31,9 @@
         <%}%>
     </ul>
 </section>
+
+<%-include('_chatbox')-%>
+
 <%}%>
 <script src='/js/home_posts_comments.js'></script>
 <script src='/js/home_posts.js'></script>
@@ -60,4 +65,10 @@
         })
     })
 </script>
-
+<%if(locals.user){%>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js'></script>
+<script src='/js/chatBox.js'>   </script>
+<script>
+     new chatBox('chat-box', '<%=locals.user.email%>');
+</script>
+<%}%>
