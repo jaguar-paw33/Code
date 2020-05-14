@@ -31,7 +31,7 @@ class Comment{
                 </p>
                 <p>${comment.user.name}</p>
               
-                    <p><a data-likes = 0 href="/likes/toggle?id=${comment._id}&type=Comment">0</a></p>
+                    <p><a class='toggle-like-button' data-likes = 0 href="/likes/toggle?id=${comment._id}&type=Comment">0</a></p>
                  
                 </li>
                 `)
@@ -42,12 +42,13 @@ class Comment{
                 url:'/comments/create',
                 data: self.commentForm.serialize(),
                 success:function(data){
-                  
+                
                    let comment = newComment(data.data.comment);
                    let postsContainer = $('.comments-list', self.postsContainer);
                    postsContainer.prepend(comment);
                    let deleteButton= $('.delete-comment-button', comment);
                    self.deleteComment(deleteButton);
+                   new toggleLike($('.toggle-like-button', comment));
                    return;
                 
                 },error:function(err){

@@ -1,13 +1,26 @@
 const User = require('../models/User');
+const Friend = require('../models/Friend');
 const fs = require('fs');
 const path = require('path');
 
 module.exports.profile = async function(req,res){
     let user = await User.findById(req.params.id);
+    let friend =await  Friend.findOne({
+        from_user:req.user._id,
+        to_user:req.params.id
+    });
+    if(!friend){
+        friend =await  Friend.findOne({
+            to_user:req.user.id,
+            from_user:req.params.id
+        });
+    }
     if(user){
+        
         return res.render('profile', {
             title:'Profile',
-            profile_user:user
+            profile_user:user,
+            isFriend:friend
         })
     }else{
         console.log('Unauthorised');

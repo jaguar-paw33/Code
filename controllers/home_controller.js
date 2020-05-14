@@ -5,15 +5,18 @@ module.exports.home = async function(req,res){
 
     try{
 
-        let posts = await Post.find({}).sort('-createdAt')
-                        .populate('user', 'name email')
+        let posts = await Post.find({})
+                        .sort('-createdAt')
+                        .populate('user', 'name')
                         .populate({
                             path:'comments',
-                            populate:{
-                                path:'user',
-                                path:'likes'
-                            }
+                                populate:{
+                                    path:'user likes'
+                                }         
                         }).populate('likes');
+
+                        
+                        
         let users = await User.find({});
         return res.render('home', {
             title:'Home | Codeial',

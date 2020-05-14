@@ -21,10 +21,17 @@ module.exports.posts = async function(req,res){
 module.exports.destroy = async function(req,res){
     let post = await Post.findById(req.params.id);
     if(post){
+        if(req.user.id==post.user)
+        {
         post.remove();
         return res.json(200, {
             message:'Successfully Deleted'
         })
+        }else{
+            return res.json(404, {
+                message:'Unauthorised'
+            })      
+        }
     }else{
         return res.json('404', {
             message:'Not Found'

@@ -30,7 +30,14 @@ module.exports.toggle_like = async function(req,res){
             });
             await likeable.likes.push(like._id);
             likeable.save();
-
+            if(req.xhr){
+                return res.json(200,{
+                    message:'Like Toggled',
+                    data:{
+                        deleted:deleted
+                    }
+                })
+            }
             return res.redirect('back');
         }
         else{
@@ -38,7 +45,14 @@ module.exports.toggle_like = async function(req,res){
             await likeable.likes.pull(like._id);
             await likeable.save();
             await like.remove();
-
+            if(req.xhr){
+                return res.json(200,{
+                    message:'Like Toggled',
+                    data:{
+                        deleted:deleted
+                    }
+                })
+            }
             return res.redirect('back');
         }
 

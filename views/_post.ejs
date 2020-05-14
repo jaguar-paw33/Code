@@ -8,7 +8,7 @@
     </p>
     <p><%=post.user.name%></p>
     <%if(locals.user){%>
-    <p><a data-likes ='<%=post.likes.length%>' href="/likes/toggle?id=<%=post._id%>&type=Post"><%=post.likes.length%></a></p>
+    <p><a class='toggle-like-button' data-likes ='<%=post.likes.length%>' href="/likes/toggle?id=<%=post._id%>&type=Post"><%=post.likes.length%></a></p>
     <%}else{%>
        <p><%=post.likes.length%></p>
     <%}%>

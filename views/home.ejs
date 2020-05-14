@@ -32,4 +32,32 @@
 <%}%>
 <script src='/js/home_posts_comments.js'></script>
 <script src='/js/home_posts.js'></script>
+<script src='/js/likes.js'></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        $(this).click(function(e){  
+            e.preventDefault();
+            $.ajax({
+                type:'get',
+                url:$(this).prop('href'),
+                success:function(data){                 
+                    let count=parseInt($(self).attr('data-likes'));        
+                    if(data.data.deleted)
+                    {
+                        count--;
+                    }else{
+                        count++;
+                    }
+                    $(self).attr('data-likes',count);
+                    $(self).text(count);
+                    return;
+                },error:function(err){
+                    console.log('Error in Like', err);
+                    return;
+                }
+            })
+        })
+    })
+</script>
 

@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
         required:true
     },avatar:{
       type:String,
-    }
+    },friends:[{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Friend'
+    }]
 },{
     timestamps:true
 })

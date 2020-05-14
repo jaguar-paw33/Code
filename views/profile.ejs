@@ -12,8 +12,19 @@
     </form>
 
 <%}else{%>
-
     <p><%=profile_user.name%></p>
     <p><%=profile_user.email%></p>
+    <p><a class='toggle_friend' href="/users/friend/<%= profile_user._id %>"><button type='submit'>
+        <%if(isFriend){%>
+            Un-Friend
+        <%}else{%>
+            Add-Friend
+        <%}%>
+    </button></a></p>
+<%}%>
+
+<%if(locals.user.id != profile_user.id){%>
+
+<script src='/js/toggle_friend.js'></script>
 
 <%}%>

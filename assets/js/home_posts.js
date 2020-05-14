@@ -17,7 +17,7 @@
                         </p>
                         <p>${post.user.name}</p>
                     
-                        <p><a data-likes ='0' href="/likes/toggle?id=${post._id}&type=Post">0</a></p>
+                        <p><a class='toggle-like-button' data-likes ='0' href="/likes/toggle?id=${post._id}&type=Post">0</a></p>
                     
                         <div>
                     
@@ -49,6 +49,7 @@
                     let delete_button = $('.delete-post-button', post);
                     deletePost(delete_button);
                     new Comment(posts_list);
+                    new toggleLike($('.toggle-like-button', post));
                     return;
                 },error:function(err){
                     console.log('Error', err);

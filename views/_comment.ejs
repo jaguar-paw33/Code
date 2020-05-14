@@ -5,9 +5,9 @@
         <%}%>
         <%=comment.content%>
     </p>
-    <p><%=comment.user.name%></p>
+    <p> <%= comment.user.name %></p>
         <%if(locals.user){%>
-        <p><a data-likes ='<%=comment.likes.length%>' href="/likes/toggle?id=<%=comment._id%>&type=Comment"><%=comment.likes.length%></a></p>
+        <p><a class='toggle-like-button' data-likes ='<%=comment.likes.length%>' href="/likes/toggle?id=<%=comment._id%>&type=Comment"><%=comment.likes.length%></a></p>
         <%}else{%>
             <%=comment.likes.length%>
         <%}%>

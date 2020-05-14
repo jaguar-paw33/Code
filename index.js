@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const sassMiddleware = require('node-sass-middleware');
 const passport = require('passport');
 const localStrategy = require('./config/passport_local_stratgey');
+const jwtStrategy = require('./config/passport-jwt-strategy');
+const googleStrategy = require('./config/passport-google-oauth-strategy');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
