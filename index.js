@@ -12,7 +12,8 @@ const jwtStrategy = require('./config/passport-jwt-strategy');
 const googleStrategy = require('./config/passport-google-oauth-strategy');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 
 app.use(sassMiddleware({
@@ -56,7 +57,8 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
-
+app.use(flash());
+app.use(customMware.flash);
 
 app.use('/', require('./routes/index'));
 
