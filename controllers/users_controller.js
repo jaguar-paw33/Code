@@ -53,13 +53,17 @@ module.exports.update = async function(req,res){
                     }
                 }
                 user.save();
+<<<<<<< HEAD
                 req.flash('success', 'Successfully Updated');
+=======
+                req.flash('success', 'Updated Successfully');
+>>>>>>> noty
                 return res.redirect('back');
             })
         }
 
         }else{
-            console.log('Unauthorosed');
+            req.flash('error', 'Unauthorised');
             return res.redirect('back');
         }
         
@@ -98,18 +102,30 @@ module.exports.create = async function(req,res){
     try{
             if(req.body.password != req.body.confirm_password)
             {
+<<<<<<< HEAD
                 req.flash('error', 'Confirm Password does not match');
+=======
+                req.flash('error', 'Confirm Password does not Match');
+>>>>>>> noty
                 return res.redirect('back');
             }
 
             let user = await User.findOne({email:req.body.email});
             if(user){
+<<<<<<< HEAD
                 req.flash('error', 'User Already Exists');
+=======
+                req.flash('error', 'User already exists');
+>>>>>>> noty
                 return res.redirect('/users/signIn');
             }
             else{
                 await User.create(req.body);
+<<<<<<< HEAD
                 req.flash('success', 'Successfully Signed Up');
+=======
+                req.flash('success', 'Signed Up Successfully');
+>>>>>>> noty
                 return res.redirect('/users/signIn');
             }
         
@@ -121,13 +137,21 @@ module.exports.create = async function(req,res){
 
 
 module.exports.create_session = function(req,res){
+<<<<<<< HEAD
     req.flash('success', 'Successfully Signed In');
+=======
+    req.flash('success', 'Signed In Successfully');
+>>>>>>> noty
     return res.redirect('/');
 }
 
 
 module.exports.destroy_session = function(req,res){
     req.logout();
+<<<<<<< HEAD
     req.flash('success', 'Successfully Signed Out');
+=======
+    req.flash('success', 'Signed Out Successfully');
+>>>>>>> noty
     return res.redirect('/users/signIn');
 }

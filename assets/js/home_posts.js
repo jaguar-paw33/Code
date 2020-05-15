@@ -50,6 +50,15 @@
                     deletePost(delete_button);
                     new Comment(posts_list);
                     new toggleLike($('.toggle-like-button', post));
+
+                    new Noty({
+                        theme:'relax',
+                        type:'success',
+                        text:'Posted Successfully',
+                        layout:'topRight',
+                        timeout:1000
+                    }).show();
+
                     return;
                 },error:function(err){
                     console.log('Error', err);
@@ -76,6 +85,15 @@
                  success:function(data){
                     let post = $(`#post-${data.data.post_id}`);
                     post.remove();
+
+                    new Noty({
+                        theme:'relax',
+                        type:'success',
+                        text:'Deleted Successfully',
+                        layout:'topRight',
+                        timeout:1000
+                    }).show();
+
                     return;
                  },error: function(err){
                     console.log('Error', err);

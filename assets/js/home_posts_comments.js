@@ -49,6 +49,17 @@ class Comment{
                    let deleteButton= $('.delete-comment-button', comment);
                    self.deleteComment(deleteButton);
                    new toggleLike($('.toggle-like-button', comment));
+
+
+                   new Noty({
+                       theme:'relax',
+                       type:'success',
+                       text:'Commented Successfully',
+                       layout:'topRight',
+                       timeout:1000
+                   }).show();
+
+
                    return;
                 
                 },error:function(err){
@@ -70,6 +81,15 @@ class Comment{
                 success:function(data){
                    
                     $(`#comment-${data.data.comment_id}`).remove();
+
+                    new Noty({
+                        theme:'relax',
+                        type:'success',
+                        text:'Deleted Successfully',
+                        layout:'topRight',
+                        timeout:1000
+                    }).show();
+
                     return;
                 },error:function(err){
                     console.log('Error', err);

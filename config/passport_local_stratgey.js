@@ -12,7 +12,7 @@ passport.use(new localStrategy({
                 return done(err);
             }
             if(!user || user.password != password){
-                console.log('Invalid Username/Password');
+               req.flash('error', 'Invalid Username/Password');
                 return done(null, false);
             }
             else{
