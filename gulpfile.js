@@ -25,7 +25,6 @@ gulp.task('css', function(done){
 
 gulp.task('js', function(done){
     console.log('Minifying JS');
-
     gulp.src('./assets/**/*.js')
     .pipe(uglify())
     .pipe(rev())
