@@ -20,6 +20,8 @@ const chatServer = require('http').Server(app);
 const chatSocket = require('./config/chatSockets').chatSockets(chatServer);
 chatServer.listen(5000);
 const path = require('path');
+require('./config/view_helper')(app);
+
 
 if(env.name=='development'){
     app.use(sassMiddleware({

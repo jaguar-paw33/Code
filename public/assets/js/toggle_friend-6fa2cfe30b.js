@@ -1,0 +1,1 @@
+$(".toggle_friend").each((function(){$(this).click((function(t){t.preventDefault();let e=this;$.ajax({type:"get",url:$(e).prop("href"),success:function(t){$("button",e).text(t.data.text)},error:function(t){console.log("Error",t)}})}))}));

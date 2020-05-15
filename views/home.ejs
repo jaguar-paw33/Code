@@ -35,12 +35,13 @@
 <%-include('_chatbox')-%>
 
 <%}%>
-<script src='/js/home_posts_comments.js'></script>
-<script src='/js/home_posts.js'></script>
-<script src='/js/likes.js'></script>
+<script src='<%=assetsPath("js/home_posts_comments.js")%>'></script>
+<script src='<%=assetsPath("js/home_posts.js")%>'></script>
+<script src='<%=assetsPath("js/likes.js")%>'></script>
 <script>
     $('.toggle-like-button').each(function(){
         let self = this;
+        
         $(this).click(function(e){  
             e.preventDefault();
             $.ajax({
@@ -67,7 +68,7 @@
 </script>
 <%if(locals.user){%>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js'></script>
-<script src='/js/chatBox.js'>   </script>
+<script src='<%=assetsPath("js/chatBox.js")%>'> </script>
 <script>
      new chatBox('chat-box', '<%=locals.user.email%>');
 </script>
